@@ -10,6 +10,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+- Change the default version format to more strictly adhered to semver. Previous default version format accepted versions that are invalid as semver, such as leading zero in major, minor, or patch version.
+
 ## [0.4.8] - 2022-06-02
 
 - Distribute prebuilt binaries for aarch64 macOS. ([#21](https://github.com/taiki-e/parse-changelog/pull/21))

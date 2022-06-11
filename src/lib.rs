@@ -139,7 +139,7 @@
 //! This is parsed by using the following regular expression:
 //!
 //! ```text
-//! ^\d+\.\d+\.\d+(-[\w\.-]+)?(\+[\w\.-]+)?$
+//! ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$
 //! ```
 //!
 //! To customize the version format, use the [`Parser::version_format`] method.
@@ -321,7 +321,7 @@ impl Parser {
     /// This is parsed by using the following regular expression:
     ///
     /// ```text
-    /// ^\d+\.\d+\.\d+(-[\w\.-]+)?(\+[\w\.-]+)?$
+    /// ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$
     /// ```
     ///
     /// # Errors
@@ -453,8 +453,10 @@ impl<'a, 'r> ParseIter<'a, 'r> {
     ) -> Self {
         static DEFAULT_PREFIX_FORMAT: Lazy<Regex> =
             Lazy::new(|| Regex::new(r"^(v|Version |Release )?").unwrap());
-        static DEFAULT_VERSION_FORMAT: Lazy<Regex> =
-            Lazy::new(|| Regex::new(r"^\d+\.\d+\.\d+(-[\w\.-]+)?(\+[\w\.-]+)?$").unwrap());
+        static DEFAULT_VERSION_FORMAT: Lazy<Regex> = Lazy::new(|| {
+            Regex::new(r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$")
+                .unwrap()
+        });
 
         Self {
             version_format: version_format.unwrap_or(&DEFAULT_VERSION_FORMAT),

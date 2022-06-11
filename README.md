@@ -118,7 +118,7 @@ format `parse-changelog` don't support by default, so use `--prefix` and
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/rust-lang/cargo/master/CHANGELOG.md \
-  | parse-changelog --prefix 'Cargo ' --version-format '^\d+\.\d+$' - 1.50
+  | parse-changelog --prefix 'Cargo ' --version-format '^[0-9]+\.[0-9]+$' - 1.50
 ```
 
 [*output of the above command.*](tests/fixtures/cargo-1.50.md)
@@ -260,7 +260,7 @@ The default version format is based on [Semantic Versioning][semver].
 This is parsed by using the following regular expression:
 
 ```text
-^\d+\.\d+\.\d+(-[\w\.-]+)?(\+[\w\.-]+)?$
+^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z\.-]+)?(\+[0-9A-Za-z\.-]+)?$
 ```
 
 To customize the version format, use the [`Parser::version_format`] method (library) or `--version-format` option (CLI).
